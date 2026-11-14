@@ -1,0 +1,26 @@
+{
+  "experiment": "Tiny Object Detection: Baseline vs. SAHI Improvement",
+  "dataset": "VisDrone2019-DET",
+  "baseline": {
+    "name": "YOLO26n (Baseline)",
+    "mAP50": 29.88,
+    "fps": 60.5,
+    "latency_ms": 16.5,
+    "realtime_capable": true
+  },
+  "improved": {
+    "name": "YOLO26n + SAHI (Improved)",
+    "mAP50": 36.3,
+    "fps": 9.8,
+    "latency_ms": 101.6,
+    "gain_mAP50": 6.42,
+    "realtime_capable": false
+  },
+  "per_class_gains": {
+    "pedestrian": "+8.3%",
+    "people": "+7.1%",
+    "bicycle": "+6.8%",
+    "motor": "+5.4%",
+    "car": "+3.2%"
+  }
+}

@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Datasets and Large Zip Archives
+datasets/
+*.zip
+*.tar.gz
+val.zip
+temp_video.mp4
+
+# Large raw training logs (keep baseline_run summary plots only)
+runs/
+last.pt
+*.log
+.system_generated/
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
