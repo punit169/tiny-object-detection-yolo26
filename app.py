@@ -102,12 +102,12 @@ if "video_report" not in st.session_state:
 
 # ----------------- SIDEBAR -----------------
 with st.sidebar:
-    st.markdown("## 🚁 **SKYWATCH AI**")
+    st.markdown("##  **SKYWATCH AI**")
     st.markdown("**Aerial Defense & Tiny Object Monitor**")
     st.caption("PC-503: M.Tech ICT | Dhirubhai Ambani University (DAU)")
     st.divider()
 
-    st.markdown("### ⚙️ Detection Configuration")
+    st.markdown("###  Detection Configuration")
     model_choice = st.radio(
         "Inference Engine",
         ["YOLO26n Baseline (Real-Time)", "YOLO26n + SAHI (High-Precision Slicing)"],
@@ -120,7 +120,7 @@ with st.sidebar:
     slice_size = 640
     overlap_ratio = 0.20
     if "SAHI" in model_choice:
-        st.markdown("#### 🔍 Slicing Parameters")
+        st.markdown("####  Slicing Parameters")
         slice_size = st.selectbox("Slice Resolution", [512, 640], index=1)
         overlap_ratio = st.slider("Overlap Ratio", 0.10, 0.40, 0.20, 0.05)
 
@@ -136,15 +136,15 @@ with st.sidebar:
 
 # ----------------- MAIN NAVIGATION TABS -----------------
 tab1, tab2, tab3, tab4 = st.tabs([
-    "📸 Aerial Image Inspection",
-    "🎥 Live Video Stream",
-    "⚖️ Side-by-Side Dual Detector",
-    "📊 Benchmarks & Performance Dashboard"
+    " Aerial Image Inspection",
+    " Live Video Stream",
+    " Side-by-Side Dual Detector",
+    " Benchmarks & Performance Dashboard"
 ])
 
 # ----------------- TAB 1: IMAGE INSPECTION -----------------
 with tab1:
-    st.markdown("### 📸 High-Altitude Aerial Target Scanner")
+    st.markdown("###  High-Altitude Aerial Target Scanner")
     st.caption("Upload any high-resolution aerial or drone image to scan for tiny objects (pedestrians, vehicles, bicycles).")
 
     img_col1, img_col2 = st.columns([1, 1])
@@ -247,7 +247,7 @@ with tab1:
 
         # 🔍 THE TINY TARGET MAGNIFIER
         st.divider()
-        st.markdown("### 🔬 Tiny Target Magnifier (Sub-32px Object Crops)")
+        st.markdown("###  Tiny Target Magnifier (Sub-32px Object Crops)")
         st.caption("Demonstrating high-altitude tiny object resolution by extracting and zooming into the smallest detected bounding boxes.")
 
         # Filter smallest objects
@@ -273,7 +273,7 @@ with tab1:
         else:
             st.info("No sub-32px tiny targets detected in this frame at current confidence threshold.")
     else:
-        st.info("👆 Please upload an aerial drone image above to start detection.")
+        st.info(" Please upload an aerial drone image above to start detection.")
 
 
 # ----------------- TAB 2: VIDEO DETECTION -----------------
@@ -294,15 +294,15 @@ with tab2:
 
         vcol1, vcol2 = st.columns([3, 2])
         with vcol1:
-            st.caption(f"📁 Video Feed: `{total_vid_frames} frames` | Native Video Rate: `{native_fps:.1f} FPS`")
+            st.caption(f" Video Feed: `{total_vid_frames} frames` | Native Video Rate: `{native_fps:.1f} FPS`")
         with vcol2:
             max_frames = st.slider("Max Frames to Process", min_value=25, max_value=max(25, total_vid_frames), value=min(100, max(25, total_vid_frames)), step=25, help="Select number of frames to analyze, or analyze all frames.")
 
         col_ctrl1, col_ctrl2 = st.columns([1, 1])
         with col_ctrl1:
-            start_btn = st.button("▶️ Start Live Detection Stream", key="start_video")
+            start_btn = st.button(" Start Live Detection Stream", key="start_video")
         with col_ctrl2:
-            stop_btn = st.button("⏹️ Reset / Clear Report", key="clear_video")
+            stop_btn = st.button(" Reset / Clear Report", key="clear_video")
 
         if stop_btn:
             st.session_state.video_report = None
@@ -405,7 +405,7 @@ with tab2:
                     'raw_detections': raw_detections,
                     'tracks': active_tracks
                 }
-                st.success(f"✅ Stream complete! Analyzed {len(fps_records)} frames in {st.session_state.video_report['duration_s']:.1f}s.")
+                st.success(f" Stream complete! Analyzed {len(fps_records)} frames in {st.session_state.video_report['duration_s']:.1f}s.")
 
         # Post-Stream Telemetry & Feasibility Report
         if st.session_state.video_report is not None:
@@ -416,11 +416,11 @@ with tab2:
 
             avg_fps = rep['avg_fps']
             if avg_fps >= 30.0:
-                st.success(f"✅ **Airborne Edge Feasibility: CERTIFIED REAL-TIME DEPLOYABLE** ({avg_fps:.1f} FPS ≥ 30 FPS target)")
+                st.success(f" **Airborne Edge Feasibility: CERTIFIED REAL-TIME DEPLOYABLE** ({avg_fps:.1f} FPS ≥ 30 FPS target)")
             elif avg_fps >= 15.0:
-                st.warning(f"🟡 **Airborne Edge Feasibility: NEAR REAL-TIME** ({avg_fps:.1f} FPS — suitable for low-speed surveillance)")
+                st.warning(f" **Airborne Edge Feasibility: NEAR REAL-TIME** ({avg_fps:.1f} FPS — suitable for low-speed surveillance)")
             else:
-                st.error(f"🔴 **Airborne Edge Feasibility: HIGH LATENCY** ({avg_fps:.1f} FPS — offline processing recommended)")
+                st.error(f" **Airborne Edge Feasibility: HIGH LATENCY** ({avg_fps:.1f} FPS — offline processing recommended)")
 
             # Metric Cards
             distinct_targets_all = len([t for t in rep['tracks'] if t['hits'] >= 2])
@@ -435,25 +435,25 @@ with tab2:
             chart_col1, chart_col2 = st.columns(2)
             import pandas as pd
             with chart_col1:
-                st.markdown("#### ⚡ Frame-by-Frame FPS Telemetry")
+                st.markdown("####  Frame-by-Frame FPS Telemetry")
                 df_fps = pd.DataFrame({'FPS': rep['fps_records'], 'Frame': range(1, len(rep['fps_records'])+1)}).set_index('Frame')
                 st.line_chart(df_fps)
                 st.caption(f"Min: `{rep['min_fps']:.1f} FPS` | Peak: `{rep['max_fps']:.1f} FPS` | Stability σ: `±{rep['fps_std']:.1f} FPS`")
 
             with chart_col2:
-                st.markdown("#### 🎯 Target Density Over Time")
+                st.markdown("####  Target Density Over Time")
                 df_density = pd.DataFrame({'Targets': rep['frame_counts'], 'Frame': range(1, len(rep['frame_counts'])+1)}).set_index('Frame')
                 st.line_chart(df_density)
                 st.caption(f"Peak Congestion: `{max(rep['frame_counts']) if rep['frame_counts'] else 0} targets` in a single frame")
 
             # Detected Class Breakdown Distribution with 1-based index and confidence cutoff
-            st.markdown("#### 📋 Detected Object Category Breakdown")
+            st.markdown("####  Detected Object Category Breakdown")
             st.caption("Interactive analysis of distinct ground entities vs. cumulative detections with confidence cutoff.")
 
             col_f1, col_f2 = st.columns([2, 1])
             with col_f1:
                 conf_filter = st.slider(
-                    "🎯 Minimum Confidence Filter (Accuracy Cutoff)",
+                    " Minimum Confidence Filter (Accuracy Cutoff)",
                     min_value=0.10,
                     max_value=0.85,
                     value=0.35,
@@ -510,7 +510,7 @@ with tab2:
 
 # ----------------- TAB 3: SIDE-BY-SIDE DUAL DETECTOR -----------------
 with tab3:
-    st.markdown("### ⚖️ Dual-Engine Visual Verification (Baseline vs. SAHI)")
+    st.markdown("###  Dual-Engine Visual Verification (Baseline vs. SAHI)")
     st.caption("Directly inspect identical aerial scenes to visually prove how many missed tiny objects SAHI recovers.")
 
     dual_img_file = st.file_uploader("Upload Aerial Image for Comparison", type=["jpg", "jpeg", "png"], key="dual_img")
@@ -568,7 +568,7 @@ with tab3:
 
 # ----------------- TAB 4: BENCHMARK DASHBOARD -----------------
 with tab4:
-    st.markdown("### 📊 Performance & Latency Benchmark Dashboard")
+    st.markdown("###  Performance & Latency Benchmark Dashboard")
     st.caption("Quantitative evaluation metrics, cross-generational comparisons, and the accuracy-speed trade-off.")
 
     # 4-Way Comprehensive Benchmark Table
